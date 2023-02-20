@@ -15,22 +15,36 @@ let board: number[], turn: number, winner: boolean, tie: boolean
 
 //Cached Element References
 const squareEls = document.querySelectorAll('.sqr')
+const boardEl = document.querySelector<HTMLElement>('.board')!
 const messgaeEl = document.getElementById('message')
 const resetBtn = document.querySelector<HTMLButtonElement>('#reset')
 
 //Event Listeners
-// squareEls.addEventlistener('click', handleClick)
+boardEl.addEventListener('click', handleClick)
 resetBtn?.addEventListener('click', init)
 
 //Functions
-function init() {
+function init(): void {
   board = [0, 0, 0, 0, 0, 0, 0, 0, 0]
   turn = 1
   winner = false
   tie = false
+  render()
 }
 
 init ()
+
+function render(): void {
+  updateBoard()
+}
+
+function updateBoard(): void {
+  board.forEach((squ, idx) => {
+    if (squ === 1) squareEls[idx].innerHTML = 'X'
+    else if (squ === -1) squareEls[idx].innerHTML = 'O'
+    else squareEls[idx].innerHTML = ''
+  })
+}
 
 function handleClick(evt: MouseEvent): void {
 

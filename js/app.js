@@ -55,4 +55,13 @@ function updateMessage() {
     }
 }
 function handleClick(evt) {
+    if (!(evt.target instanceof HTMLElement))
+        return;
+    const sqIdx = parseInt(evt.target.id.slice(2, 3), 10);
+    if (isNaN(sqIdx) || board[sqIdx] || winner)
+        return;
+    placePiece(sqIdx);
+}
+function placePiece(idx) {
+    board[idx] = turn;
 }

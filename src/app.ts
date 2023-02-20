@@ -58,5 +58,15 @@ function updateMessage(): void {
 }
 
 function handleClick(evt: MouseEvent): void {
+  if (!(evt.target instanceof HTMLElement)) return
 
+  const sqIdx = parseInt(evt.target.id.slice(2, 3), 10)
+
+  if (isNaN(sqIdx) || board[sqIdx] || winner) return
+  
+  placePiece(sqIdx)
+}
+
+function placePiece(idx: number) {
+  board[idx] = turn
 }

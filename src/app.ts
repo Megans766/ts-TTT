@@ -66,6 +66,7 @@ function handleClick(evt: MouseEvent): void {
 
   placePiece(sqIdx)
   checkForTie()
+  checkForWinner()
 }
 
 function placePiece(idx: number) {
@@ -78,3 +79,14 @@ function checkForTie(): void {
   })
 }
 
+function checkForWinner(): void {
+  winCombos.forEach(combo => {
+    let theWinner = 0 
+    combo.forEach(function(element) {
+      theWinner += board[element]
+    })
+    if (Math.abs(theWinner) === 3) {
+      winner = true
+    }
+  })
+}

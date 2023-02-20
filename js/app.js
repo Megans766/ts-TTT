@@ -62,6 +62,7 @@ function handleClick(evt) {
         return;
     placePiece(sqIdx);
     checkForTie();
+    checkForWinner();
 }
 function placePiece(idx) {
     board[idx] = turn;
@@ -69,5 +70,16 @@ function placePiece(idx) {
 function checkForTie() {
     tie = board.every(sqr => {
         return sqr !== 0;
+    });
+}
+function checkForWinner() {
+    winCombos.forEach(combo => {
+        let theWinner = 0;
+        combo.forEach(function (element) {
+            theWinner += board[element];
+        });
+        if (Math.abs(theWinner) === 3) {
+            winner = true;
+        }
     });
 }

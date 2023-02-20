@@ -36,11 +36,11 @@ function render() {
 function updateBoard() {
     board.forEach((squ, idx) => {
         if (squ === 1)
-            squareEls[idx].innerHTML = 'X';
+            squareEls[idx].textContent = 'X';
         else if (squ === -1)
-            squareEls[idx].innerHTML = 'O';
+            squareEls[idx].textContent = 'O';
         else
-            squareEls[idx].innerHTML = '';
+            squareEls[idx].textContent = '';
     });
 }
 function updateMessage() {
@@ -51,7 +51,7 @@ function updateMessage() {
         messgaeEl.textContent = "It's a tie!";
     }
     else {
-        messgaeEl.textContent = `Player ${turn === 1 ? 'X' : 'O'} wins!`;
+        messgaeEl.textContent = `Player ${turn === -1 ? 'O' : 'X'} wins!`;
     }
 }
 function handleClick(evt) {
@@ -61,7 +61,13 @@ function handleClick(evt) {
     if (isNaN(sqIdx) || board[sqIdx] || winner)
         return;
     placePiece(sqIdx);
+    checkForTie();
 }
 function placePiece(idx) {
     board[idx] = turn;
+}
+function checkForTie() {
+    tie = board.every(sqr => {
+        return sqr !== 0;
+    });
 }

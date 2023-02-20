@@ -41,9 +41,9 @@ function render(): void {
 
 function updateBoard(): void {
   board.forEach((squ, idx) => {
-    if (squ === 1) squareEls[idx].innerHTML = 'X'
-    else if (squ === -1) squareEls[idx].innerHTML = 'O'
-    else squareEls[idx].innerHTML = ''
+    if (squ === 1) squareEls[idx].textContent = 'X'
+    else if (squ === -1) squareEls[idx].textContent = 'O'
+    else squareEls[idx].textContent = ''
   })
 }
 
@@ -53,7 +53,7 @@ function updateMessage(): void {
   } else if (!winner && tie) {
     messgaeEl.textContent = "It's a tie!"
   } else {
-    messgaeEl.textContent = `Player ${turn === 1 ? 'X' : 'O'} wins!`
+    messgaeEl.textContent = `Player ${turn === -1 ? 'O' : 'X'} wins!`
   }
 }
 
@@ -63,10 +63,18 @@ function handleClick(evt: MouseEvent): void {
   const sqIdx = parseInt(evt.target.id.slice(2, 3), 10)
 
   if (isNaN(sqIdx) || board[sqIdx] || winner) return
-  
+
   placePiece(sqIdx)
+  checkForTie()
 }
 
 function placePiece(idx: number) {
   board[idx] = turn
 }
+
+function checkForTie(): void {
+  tie = board.every(sqr => {
+    return sqr !== 0
+  })
+}
+

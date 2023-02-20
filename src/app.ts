@@ -16,7 +16,7 @@ let board: number[], turn: number, winner: boolean, tie: boolean
 //Cached Element References
 const squareEls = document.querySelectorAll('.sqr')
 const boardEl = document.querySelector<HTMLElement>('.board')!
-const messgaeEl = document.getElementById('message')
+const messgaeEl = document.getElementById('message')!
 const resetBtn = document.querySelector<HTMLButtonElement>('#reset')
 
 //Event Listeners
@@ -36,6 +36,7 @@ init ()
 
 function render(): void {
   updateBoard()
+  updateMessage()
 }
 
 function updateBoard(): void {
@@ -44,6 +45,16 @@ function updateBoard(): void {
     else if (squ === -1) squareEls[idx].innerHTML = 'O'
     else squareEls[idx].innerHTML = ''
   })
+}
+
+function updateMessage(): void {
+  if (!winner && !tie) {
+    messgaeEl.textContent = `Player ${turn === 1 ? 'X' : 'O'} turn`
+  } else if (!winner && tie) {
+    messgaeEl.textContent = "It's a tie!"
+  } else {
+    messgaeEl.textContent = `Player ${turn === 1 ? 'X' : 'O'} wins!`
+  }
 }
 
 function handleClick(evt: MouseEvent): void {

@@ -31,6 +31,7 @@ function init() {
 init();
 function render() {
     updateBoard();
+    updateMessage();
 }
 function updateBoard() {
     board.forEach((squ, idx) => {
@@ -41,6 +42,17 @@ function updateBoard() {
         else
             squareEls[idx].innerHTML = '';
     });
+}
+function updateMessage() {
+    if (!winner && !tie) {
+        messgaeEl.textContent = `Player ${turn === 1 ? 'X' : 'O'} turn`;
+    }
+    else if (!winner && tie) {
+        messgaeEl.textContent = "It's a tie!";
+    }
+    else {
+        messgaeEl.textContent = `Player ${turn === 1 ? 'X' : 'O'} wins!`;
+    }
 }
 function handleClick(evt) {
 }
